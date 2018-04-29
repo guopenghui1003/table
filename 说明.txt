@@ -1,0 +1,1 @@
+需要放在部署起来才可以，正常运行，复制index.html和file文件夹到tomcat的root文件夹下

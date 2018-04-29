@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="file/index.css">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <p v-for="(item,index) in result.base">{{index}}:{{item}}</p>
+    <table class="table  table-bordered">
+      <tr>
+        <th>颜色/尺码</th>
+        <th>M</th>
+        <th>L</th>
+        <th>S</th>
+        <th>小计</th>
+      </tr>
+      <tr v-for="(item1,index1) in result.colorData">
+        <td>{{item1.color}}</td>
+        <td v-for="(item2,index2) in item1.scaleData">
+          <input type="number" min="0" 
+          v-bind:max="(result.colorData[index1].scaleData[index2]).number" 
+          v-bind:placeholder="new Number((result.colorData[index1].scaleData[index2]).number).toLocaleString().replace(/,/g,'')" 
+          v-model="(result.colorData[index1].scaleData[index2]).scaleInput" 
+          v-on:input="inputChange(result.colorData,index1,index2,$event)" style="width: 100%;">
+        </td>
+        <td>{{(item1.price)}}元</td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          总件数：{{allCount}}，总金额：{{allPrice}}元
+          <button v-bind:disabled="!allCount" @click="submit">提交订单</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="file/index.js"></script>
+
+</html>
